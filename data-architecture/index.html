@@ -121,13 +121,13 @@ footer p{max-width:none}
 <body>
 <header class="top"><div class="wrap"><nav aria-label="页内导航">
   <strong>调试送电 · 数据架构</strong>
-  <a href="#overview">总体结构</a><a href="#flow">一次作业</a><a href="#extension">延时扫码</a><a href="#ownership">数据归属</a><a href="#evidence">证据链</a><a href="#capacity">容量与选型</a><a href="#offline">断网时</a><a href="#modes">两种部署</a><a href="#local">本机调试</a><a href="#answers">工程师回答</a><a href="#questions">仍待确认</a>
+  <a href="#overview">总体结构</a><a href="#flow">一次作业</a><a href="#extension">延时扫码</a><a href="#onboarding">人员导入</a><a href="#ownership">数据归属</a><a href="#evidence">证据链</a><a href="#capacity">容量与选型</a><a href="#offline">断网时</a><a href="#modes">两种部署</a><a href="#local">本机调试</a><a href="#answers">工程师回答</a><a href="#questions">仍待确认</a>
 </nav></div></header>
 
 <main class="wrap">
 <section class="hero" aria-labelledby="page-title">
   <div>
-    <p class="kicker">阶段结论 v0.2 · 2026-10-24 · 取代 10-23 讨论稿</p>
+    <p class="kicker">阶段结论 v0.3 · 2026-10-24 · 取代 10-23 讨论稿</p>
     <h1 id="page-title">船舱里手机离线作业，上甲板联网后补传到云端</h1>
     <p class="lead">船厂工程师回答了 14 个问题之后，数据架构的重心变了：船上没有网络，现场离线作业的主角是手机。默认把服务放在我们的云上，电工接单时把签了名的开锁授权下载到手机，船舱里离线开锁、关锁，上到甲板再补传，由服务器事后核对。</p>
     <p class="lead muted">标“已确认”的来自用户或工程师；标“建议”的是设计取舍，还没逐条确认；尚未实现。</p>
@@ -145,13 +145,14 @@ footer p{max-width:none}
 
 <section id="summary" aria-labelledby="summary-title">
   <p class="kicker">结论摘要</p>
-  <h2 id="summary-title">这一阶段定下来的五件事</h2>
+  <h2 id="summary-title">这一阶段定下来的六件事</h2>
   <ul class="summary">
     <li><b>默认用云</b>一套服务放在我们云上，按船厂、项目隔离；私有化改为以后可选的“船厂服务器 + 云中转”。<span class="src">用户 10-24 已确认</span></li>
     <li><b>只在船坞里用</b>出海调试和试航不用本系统。<span class="src">D3，用户 10-24 已确认</span></li>
     <li><b>接单时下载离线授权</b>一个任务一把锁，开一次、关一次，在批准的调试时段内有效。<span class="src">建议</span></li>
     <li><b>超时后继续合闸必须扫码</b>主管出示服务器签发的延时二维码，电工手机离线核验。<span class="src">用户 10-24 已确认</span></li>
     <li><b>先照收、再核对</b>补传上来的现场记录不拒收，服务器对账后标出违规。<span class="src">建议</span></li>
+    <li><b>扫码注册，管理员确认</b>每个项目、每个角色一张注册码；所有角色都要项目管理员确认才生效，一人一个固定角色。<span class="src">用户 10-24 已确认</span></li>
   </ul>
 </section>
 
@@ -341,8 +342,75 @@ footer p{max-width:none}
   </div>
 </section>
 
+<section id="onboarding">
+  <p class="kicker">四 · 人员冷启动导入与项目维度</p>
+  <h2>扫码自助注册，项目管理员确认后生效</h2>
+  <p>不逐个手工建账号，也不依赖船厂 OA（外包电工可能不在通讯录里）。每个项目、每个角色一张注册码，本人用自己的手机扫码填写，所有角色都要项目管理员确认才生效。</p>
+  <figure>
+    <div class="scroll">
+      <svg class="dg" viewBox="0 0 960 230" role="img" aria-label="冷启动注册流程：运维开通并指定管理员，管理员按角色生成限时限次的注册码，本人扫码填写手机号、单位并设置密码，进入待确认，管理员批量确认后账号生效并进入审计；已有账号的人扫另一个项目的码时先核对角色，一致则提交加入申请等待确认，不一致直接拒绝。">
+        <defs>
+          <marker id="r-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk" d="M0 1L9 5L0 9z"/></marker>
+        </defs>
+        <rect class="n-cloud" x="20" y="30" width="160" height="64" rx="5"/>
+        <text class="tb" x="100" y="56" text-anchor="middle">运维开通</text>
+        <text class="ts" x="100" y="77" text-anchor="middle">建项目，指定管理员</text>
+        <rect class="n" x="210" y="30" width="160" height="64" rx="5"/>
+        <text class="tb" x="290" y="56" text-anchor="middle">生成注册码</text>
+        <text class="ts" x="290" y="77" text-anchor="middle">按角色 · 限时限次</text>
+        <rect class="n" x="400" y="30" width="160" height="64" rx="5"/>
+        <text class="tb" x="480" y="56" text-anchor="middle">本人扫码注册</text>
+        <text class="ts" x="480" y="77" text-anchor="middle">手机号 · 单位 · 设密码</text>
+        <rect class="n" x="590" y="30" width="160" height="64" rx="5"/>
+        <text class="tb t-warn" x="670" y="56" text-anchor="middle">待确认</text>
+        <text class="ts" x="670" y="77" text-anchor="middle">管理员批量确认</text>
+        <rect class="n-site" x="780" y="30" width="160" height="64" rx="5"/>
+        <text class="tb t-site" x="860" y="56" text-anchor="middle">账号生效</text>
+        <text class="ts" x="860" y="77" text-anchor="middle">加入项目 · 进入审计</text>
+        <line class="ln" x1="182" y1="62" x2="207" y2="62" marker-end="url(#r-ink)"/>
+        <line class="ln" x1="372" y1="62" x2="397" y2="62" marker-end="url(#r-ink)"/>
+        <line class="ln" x1="562" y1="62" x2="587" y2="62" marker-end="url(#r-ink)"/>
+        <line class="ln" x1="752" y1="62" x2="777" y2="62" marker-end="url(#r-ink)"/>
+
+        <text class="ts" x="20" y="168">可选：管理员预传名单，名单内的人</text>
+        <text class="ts" x="20" y="186">在确认页高亮，可一键全部确认；</text>
+        <text class="ts" x="20" y="204">仍需管理员点确认，不自动生效</text>
+        <rect class="n" x="380" y="150" width="180" height="56" rx="5"/>
+        <text class="tb" x="470" y="173" text-anchor="middle">已有账号的人</text>
+        <text class="ts" x="470" y="193" text-anchor="middle">扫另一个项目的码</text>
+        <rect class="n" x="600" y="150" width="140" height="56" rx="5"/>
+        <text class="tb" x="670" y="173" text-anchor="middle">核对角色</text>
+        <text class="ts" x="670" y="193" text-anchor="middle">与本人角色比对</text>
+        <rect class="n" x="780" y="150" width="160" height="56" rx="5"/>
+        <text class="tb t-warn" x="860" y="173" text-anchor="middle">角色不符</text>
+        <text class="ts" x="860" y="193" text-anchor="middle">直接拒绝</text>
+        <line class="ln" x1="562" y1="178" x2="597" y2="178" marker-end="url(#r-ink)"/>
+        <line class="ln" x1="742" y1="178" x2="777" y2="178" marker-end="url(#r-ink)"/>
+        <text class="ts" x="760" y="170" text-anchor="middle">不一致</text>
+        <line class="ln" x1="670" y1="148" x2="670" y2="97" marker-end="url(#r-ink)"/>
+        <text class="tl" x="678" y="128">一致</text>
+      </svg>
+    </div>
+    <figcaption>注册码由服务器签名，限时、限次、可随时作废，只表示“申请加入哪个项目、申请什么角色”；默认 7 天、30 人（待确认 P10）。</figcaption>
+  </figure>
+  <h3 style="margin-top:28px">账号与角色规则</h3>
+  <div class="points two">
+    <div><b>一人一个固定角色</b><p>调试主管、安全主管、调试经理、电气操作员、项目经理（只管理，不审批）。角色不能在项目之间切换，变更只能由管理员在后台操作并留审计。<span class="src">角色固定：用户 10-24 已确认</span></p></div>
+    <div><b>项目管理权限按项目给</b><p>项目经理，或该项目授权的调试经理，负责生成注册码、确认名单、配 AB 角；不改变本人角色。<span class="src">D8 已确认；具体分配为建议</span></p></div>
+    <div><b>退场自动失效</b><p>项目结束或成员有效期到期自动失效，管理员可随时移除。电工登记特种作业操作证，到期前提醒，到期后不能接单。<span class="src">建议</span></p></div>
+    <div><b>本人设密码</b><p>不用统一初始密码。接短信服务时本人可找回；不接时由管理员重置为一次性临时密码，首次登录必须修改。<span class="src">待确认 P9</span></p></div>
+  </div>
+  <h3 style="margin-top:28px">App 里的项目维度</h3>
+  <div class="cards">
+    <article class="card site"><h3>只在一条船上</h3><p>看不到项目选择，界面和现在一样。</p><span class="pill idea">建议</span></article>
+    <article class="card cloud"><h3>参加多条船</h3><p>工作台、我的任务、通知合并显示，每张卡片标船名；顶部“全部项目”筛选只在参加两个以上项目时出现。</p><span class="pill idea">建议</span></article>
+    <article class="card cloud"><h3>必须选船的地方</h3><p>新建任务、项目管理（注册码、确认名单、AB 角）、看板筛选。“我的”页列出参加的项目和有效期。</p><span class="pill idea">建议</span></article>
+    <article class="card warn"><h3>扫别的项目的码</h3><p>角色一致就提交加入申请，等管理员确认；不一致直接拒绝。同一人只注册一次。</p><span class="pill">已确认：都要管理员确认</span></article>
+  </div>
+</section>
+
 <section id="ownership">
-  <p class="kicker">四 · 数据归属</p>
+  <p class="kicker">五 · 数据归属</p>
   <h2>每类数据只有一个地方能改</h2>
   <div class="table-scroll">
     <table>
@@ -351,7 +419,8 @@ footer p{max-width:none}
         <tr><td>作业记录、审计、异常</td><td>云上服务（私有化时为船厂服务器）</td><td>只追加；补传的离线记录带手机时间、服务器接收时间和手机签名</td><td><span class="pill idea">建议</span></td></tr>
         <tr><td>现场照片</td><td>对象存储</td><td>运维后台不看照片；私有化时船厂全部保留</td><td><span class="pill">D11 已确认</span></td></tr>
         <tr><td>船、配电板、断路器、柜门、锁的台账</td><td>项目内，由调试主管或电气操作员录入</td><td>录入和修改都留审计</td><td><span class="pill">D9 已确认</span></td></tr>
-        <tr><td>人员账号、项目成员</td><td>项目管理员（调试经理或项目经理）</td><td>每条船的项目组人员不同</td><td><span class="pill">D8 已确认</span></td></tr>
+        <tr><td>人员账号</td><td>本人扫码注册，手机号为账号</td><td>角色固定；变更只能由管理员在后台操作并留审计</td><td><span class="pill">10-24 已确认</span></td></tr>
+        <tr><td>项目成员</td><td>项目管理员（项目经理或获授权的调试经理）确认</td><td>每条船的项目组人员不同；所有角色都要确认</td><td><span class="pill">D8、10-24 已确认</span></td></tr>
         <tr><td>AB 角</td><td>项目管理员配置</td><td>给安全审核、经理审批两个节点各配一位备份审批人</td><td><span class="pill ask">待确认 P4</span></td></tr>
         <tr><td>手机上的授权、草稿、待传记录</td><td>只是暂存</td><td>补传后以服务器为准；授权到期自动删除</td><td><span class="pill idea">建议</span></td></tr>
         <tr><td>跨客户运维视图</td><td>我们运维，只读</td><td>不参与任何作业判断</td><td><span class="pill">D10 已确认</span></td></tr>
@@ -361,7 +430,7 @@ footer p{max-width:none}
 </section>
 
 <section id="evidence">
-  <p class="kicker">五 · 证据链</p>
+  <p class="kicker">六 · 证据链</p>
   <h2>每一步审批和现场记录都留下来，事后可以查证</h2>
   <div class="cards two">
     <article class="card site"><h3>已经有的</h3>
@@ -386,7 +455,7 @@ footer p{max-width:none}
 </section>
 
 <section id="capacity">
-  <p class="kicker">六 · 容量估算与云选型</p>
+  <p class="kicker">七 · 容量估算与云选型</p>
   <h2>数据库压力很小，逐年增长的是照片存储</h2>
   <p>口径：每把锁每天一次作业，每次都申请一次延时。保守按每个船厂每天 1000 次完整作业计；延时其实不重新开锁、不多拍照片，所以真实数字在下表两列之间。每次作业约 50 条记录（约 50 KB）、3 张照片（App 压缩到每张约 1 MB），一年按 300 个工作日。</p>
   <div class="table-scroll">
@@ -416,7 +485,7 @@ footer p{max-width:none}
 </section>
 
 <section id="offline">
-  <p class="kicker">七 · 断网和故障时</p>
+  <p class="kicker">八 · 断网和故障时</p>
   <h2>哪一段断了，影响什么</h2>
   <div class="cards two">
     <article class="card warn"><h3>船舱内（常态）</h3><p>手机离线作业，按授权和时段本地把关，记录先存手机。上甲板后自动补传。</p><span class="pill">已确认</span></article>
@@ -427,7 +496,7 @@ footer p{max-width:none}
 </section>
 
 <section id="modes">
-  <p class="kicker">八 · 两种部署方式</p>
+  <p class="kicker">九 · 两种部署方式</p>
   <h2>默认用云；私有化改为“船厂服务器 + 云中转”</h2>
   <div class="table-scroll">
     <table>
@@ -445,7 +514,7 @@ footer p{max-width:none}
 </section>
 
 <section id="local">
-  <p class="kicker">九 · 从本机调试到正式使用</p>
+  <p class="kicker">十 · 从本机调试到正式使用</p>
   <h2>现在的软件要改的地方</h2>
   <div class="table-scroll">
     <table>
@@ -461,13 +530,15 @@ footer p{max-width:none}
         <tr><td>照片</td><td>存在数据库里</td><td>压缩后直传对象存储</td></tr>
         <tr><td>提醒</td><td>App 前台每 30 秒拉取</td><td>保留；另加手机本地提醒</td></tr>
         <tr><td>办公室 Web</td><td>合成数据样板</td><td>连云上同一套服务</td></tr>
+        <tr><td>账号</td><td>四个固定调试账号，存在本机文件里</td><td>扫码注册、项目管理员确认、手机号登录</td></tr>
+        <tr><td>项目</td><td>App 写死一个演示项目</td><td>按成员关系加载，多项目合并显示</td></tr>
       </tbody>
     </table>
   </div>
 </section>
 
 <section id="answers">
-  <p class="kicker">十 · 船厂工程师的回答（2026-10-23）</p>
+  <p class="kicker">十一 · 船厂工程师的回答（2026-10-23）</p>
   <h2>14 个问题的回答，以及对方案的影响</h2>
   <div class="table-scroll">
     <table>
@@ -493,12 +564,12 @@ footer p{max-width:none}
 </section>
 
 <section id="questions">
-  <p class="kicker">十一 · 仍待确认</p>
-  <h2>下一轮要确认的 8 个问题</h2>
-  <p>编号 P1 到 P8，和上一轮的 D1 到 D14、决策台账的 Q01 到 Q14 区分开。回答可以直接记在下面的框里。</p>
+  <p class="kicker">十二 · 仍待确认</p>
+  <h2>下一轮要确认的 10 个问题</h2>
+  <p>编号 P1 到 P10，和上一轮的 D1 到 D14、决策台账的 Q01 到 Q14 区分开。回答可以直接记在下面的框里。</p>
   <div class="qbar">
     <button type="button" id="copy-answers">复制全部问题和回答</button>
-    <span id="fill-count" aria-live="polite">已填写 0 / 8</span>
+    <span id="fill-count" aria-live="polite">已填写 0 / 10</span>
     <span id="copy-status" aria-live="polite">回答只保存在当前浏览器里，沟通完复制发回来即可。</span>
     <textarea id="copy-fallback" hidden aria-label="待复制的问题和回答"></textarea>
   </div>
@@ -527,11 +598,17 @@ footer p{max-width:none}
     <article class="q" data-id="P8"><div class="q-head"><span class="q-id">P8</span><h4>App 在后台或锁屏时，需要弹出系统通知吗？</h4></div>
       <dl><dt>为什么问</dt><dd>系统推送需要接入推送服务；船舱里本来也收不到。</dd><dt>目前默认</dt><dd>先做 App 内提醒和手机本地闹钟。</dd></dl>
       <label class="sr" for="a-p8">P8 回答</label><textarea id="a-p8" data-q="P8" placeholder="回答"></textarea></article>
+    <article class="q" data-id="P9"><div class="q-head"><span class="q-id">P9</span><h4>要不要买短信服务？</h4></div>
+      <dl><dt>为什么问</dt><dd>短信可以在注册时核实手机号是本人的，也能让本人自己找回密码；代价是服务费和短信签名备案。</dd><dt>目前默认</dt><dd>不接，忘记密码由管理员重置为临时密码。</dd></dl>
+      <label class="sr" for="a-p9">P9 回答</label><textarea id="a-p9" data-q="P9" placeholder="回答"></textarea></article>
+    <article class="q" data-id="P10"><div class="q-head"><span class="q-id">P10</span><h4>注册码的有效期和人数上限定多少？</h4></div>
+      <dl><dt>为什么问</dt><dd>码被拍照转发后，有效期越短、人数越少，越不容易被冒用。</dd><dt>目前默认</dt><dd>7 天、30 人，管理员可随时作废重生成。</dd></dl>
+      <label class="sr" for="a-p10">P10 回答</label><textarea id="a-p10" data-q="P10" placeholder="回答"></textarea></article>
   </div>
 </section>
 
 <footer>
-  <p>文字版：<code>docs/architecture/DATA_ARCHITECTURE.md</code>（v0.2）；工程师回答原文：<code>docs/requirements/DATA_ARCHITECTURE_ANSWERS_2026-10-23.md</code>。</p>
+  <p>文字版：<code>docs/architecture/DATA_ARCHITECTURE.md</code>（v0.3）；工程师回答原文：<code>docs/requirements/DATA_ARCHITECTURE_ANSWERS_2026-10-23.md</code>。</p>
   <p>本页是阶段结论和规划，尚未实现；页面里填写的回答不会自动改变任何文档或系统设置。</p>
 </footer>
 </main>
